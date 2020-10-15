@@ -1,0 +1,89 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+class TestHashMap
+{
+    private Map<String,Integer> map;
+    public TestHashMap()
+    {
+        map = new HashMap<String,Integer>();
+    }
+    public void displayMenu()
+    {
+        System.out.println(".....MENU.....");
+        System.out.println("1. Add");
+        System.out.println("2. remove key");
+        System.out.println("3. remove value");
+        System.out.println("4. display");
+        System.out.println("7. Exit");
+        System.out.print("Your choice :");
+    }
+    public void start()
+    {
+        Scanner input = new Scanner(System.in);
+        int menuChoice,value;
+        String key;
+        while(true)
+        {
+            displayMenu();
+            menuChoice = input.nextInt();
+            switch(menuChoice)
+            {
+                case 1:
+                    System.out.print("\n Key : ");
+                    input.nextLine();
+                    key = input.nextLine();
+                    System.out.print("\n Value : ");
+                    value = input.nextInt();
+                    map.put(key,new Integer(value));
+                    System.out.println("Key/Value : ("+key+","+value+") added to storage.");
+                break;
+                case 2:
+                    System.out.println("Key to REMOVE : ");
+                    input.nextLine();
+                    key = input.nextLine();
+                    Integer v = map.get(key);
+                    if(v == null)
+                        System.out.println("No value exists for key "+key);
+                    else
+                    {
+                        map.remove(key);
+                        System.out.println("Pair ("+key+","+v.intValue()+") Removed.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter Value to remove : ");
+                    value = input.nextInt();
+                    if(map.containsValue(new Integer(value)))
+                    {
+                        for(Map.Entry<String,Integer> entry : map.entrySet() )
+                        {
+                            if(entry.getValue().intValue() == value)
+                            {
+                                System.out.println("Key : "+entry.getKey()+" Removed.");
+                                map.remove(entry.getKey());
+                            }
+                        }
+                    }
+                break;
+                case 4:
+                    for(Map.Entry<String,Integer> entry : map.entrySet() )
+                    {
+                        System.out.println("( "+entry.getKey()+" , "+entry.getValue()+" );");
+                    }
+                break;
+                case 7:
+                    input.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid Choice !");
+            }
+        }
+    }
+    public static void main(String args[])
+    {
+        TestHashMap thm = new TestHashMap();
+        thm.start();
+    }
+}
